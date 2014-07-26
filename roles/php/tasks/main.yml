@@ -1,0 +1,19 @@
+---
+- name: Install PHP
+  sudo: true
+  apt: pkg={{ item }}
+  with_items:
+  - php-pear
+  - php5-dev
+  - php5-xcache
+  - php5-intl
+  - php5-mysql
+  - php5-mongo
+  - php5-curl
+- include: composer.yml
+- include: phing.yml
+- include: pdflib.yml
+- include: xdebug.yml
+- include: xcache.yml
+- include: xhprof.yml
+- include: xhgui.yml

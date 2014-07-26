@@ -1,0 +1,16 @@
+---
+- name: Install XHProf PECL extension
+  sudo: true
+  shell: pecl install -f xhprof-beta
+  ignore_errors: true
+
+- name: Copy xhprof.ini file
+  sudo: true
+  template:
+    src="etc/php5/mods-available/xhprof.ini"
+    dest="/etc/php5/mods-available/xhprof.ini"
+
+- name: Enable module
+  sudo: true
+  shell: php5enmod xhprof
+  notify: restart apache

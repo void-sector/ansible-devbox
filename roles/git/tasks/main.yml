@@ -1,0 +1,6 @@
+---
+- name: Install
+  sudo: true
+  apt: pkg={{ item }}
+  with_items:
+  - git

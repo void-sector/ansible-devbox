@@ -1,0 +1,15 @@
+---
+- name: Install composer
+  sudo: true
+  get_url:
+    url="http://getcomposer.org/composer.phar"
+    dest="/usr/bin/composer"
+    mode="0777"
+- name: Ensure composer configuration directory exists
+  file:
+    path="~/.composer"
+    state=directory
+- name: Copy composer github oauth credentials
+  copy:
+    src="home/.composer/config.json"
+    dest="~/.composer/config.json"

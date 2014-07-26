@@ -1,0 +1,11 @@
+---
+apache:
+  vhosts:
+  - {
+      server_name: xcache.localdev.nl,
+      document_root: /var/www/xcache
+    }
+  - {
+      server_name: xhgui.localdev.nl,
+      document_root: /var/www/xhgui
+    }

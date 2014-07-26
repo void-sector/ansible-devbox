@@ -1,0 +1,24 @@
+---
+- name: Create extensions directory
+  sudo: true
+  file:
+    path="/etc/php5/extensions"
+    state=directory
+
+- name: Copy pdflib module
+  sudo: true
+  copy:
+    src="etc/php5/extensions/php_pdflib.so"
+    dest="/etc/php5/extensions/php_pdflib.so"
+
+- name: Copy pdflib module config
+  sudo: true
+  notify:
+  - restart apache
+  template:
+    src="etc/php5/mods-available/pdflib.ini"
+    dest="/etc/php5/mods-available/pdflib.ini"
+
+- name: Enable pdflib module
+  sudo: true
+  command: php5enmod pdflib

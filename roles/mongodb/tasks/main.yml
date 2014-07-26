@@ -1,0 +1,17 @@
+---
+- name: Install server
+  sudo: true
+  with_items:
+  - mongodb-server
+  apt:
+    name={{ item }}
+
+- name: Copy mongodb.conf file
+  sudo: true
+  notify:
+  - restart mongodb
+  template:
+    src=mongodb.conf
+    dest="/etc/mongodb.conf"
+    owner=mongodb
+    mode=0600

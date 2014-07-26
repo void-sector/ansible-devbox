@@ -1,0 +1,12 @@
+---
+- name: Copy xcache.ini file
+  sudo: true
+  notify:
+  - restart apache
+  template:
+    src="etc/php5/mods-available/xcache.ini"
+    dest="/etc/php5/mods-available/xcache.ini"
+
+- name: Move xcache admin panel to www dir
+  sudo: true
+  command: cp -a /usr/share/xcache/htdocs /var/www/xcache

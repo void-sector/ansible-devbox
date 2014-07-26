@@ -1,0 +1,16 @@
+---
+- name: Install xdebug PECL extension
+  sudo: true
+  shell: pecl install xdebug
+  ignore_errors: true
+
+- name: Copy xcache.ini file
+  sudo: true
+  template:
+    src="etc/php5/mods-available/xdebug.ini"
+    dest="/etc/php5/mods-available/xdebug.ini"
+
+- name: Enable module
+  sudo: true
+  shell: php5enmod xdebug
+  notify: restart apache

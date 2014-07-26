@@ -1,0 +1,10 @@
+---
+- name: Install
+  sudo: true
+  apt: pkg={{ item }}
+  with_items:
+  - mysql
+
+- name: restart mysql
+  sudo: true
+  service: name=mysql state=restarted

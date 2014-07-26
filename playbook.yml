@@ -1,0 +1,21 @@
+---
+- hosts: all
+  roles:
+#  - common
+#  - networking
+#  - hardening
+#  vars:
+#    networking:
+#      internal_address: 10.0.62.14
+
+- hosts: devbox
+  roles:
+  - git
+  - mysql
+  - mongodb
+  - apache
+  - php
+
+
+#elasticsearch
+#pdf extension

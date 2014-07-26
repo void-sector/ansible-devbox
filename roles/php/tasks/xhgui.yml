@@ -1,0 +1,36 @@
+- name: clone XHGui
+  sudo: true
+  git: repo=https://github.com/preinheimer/xhprof.git dest=/var/www/xhgui
+
+- name: copy config.php
+  sudo: true
+  copy: src=xhgui/config.php dest=/var/www/xhgui/xhprof_lib/ mode=0644
+
+- name: Fix xhgui file modes
+  sudo: true
+  file: path=/var/www/xhgui owner=vagrant group=vagrant mode=0644
+
+- name: Create XHGUI Database
+  sudo: true
+  mysql_db: name=xhgui state=present collation=utf8_general_ci
+
+- name: Create XHGUI DB User
+  sudo: true
+  mysql_user: name=xhgui password=xhgui priv=xhgui.*:ALL host=localhost state=present
+
+- name: Provision XHGUI DB (copy dump file)
+  copy: src=xhgui/xhgui.sql dest=/tmp/development.sql
+
+- name: Provision XHGUI DB (import dump file)
+  shell: cat /tmp/development.sql | mysql -u xhgui -pxhgui xhgui
+
+- name: Copy xhgui.ini file
+  sudo: true
+  template:
+    src="etc/apache2/sites-available/xhgui.localdev.conf"
+    dest="/etc/apache2/sites-available/xhgui.localdev.conf"
+
+- name: enable vhost
+  sudo: true
+  shell: a2ensite xhgui.localdev.conf
+  notify: restart apache

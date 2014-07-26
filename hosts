@@ -1,0 +1,5 @@
+[devbox:children]
+devbox_machines
+
+[devbox_machines]
+192.168.2.201 ansible_ssh_user=vagrant

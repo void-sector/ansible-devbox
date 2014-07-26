@@ -1,0 +1,8 @@
+---
+- name: Install common packages
+  sudo: true
+  apt: pkg={{ item }} state=present update_cache=true
+  with_items:
+  - vim
+  - language-pack-en-base
+  - language-pack-nl-base
