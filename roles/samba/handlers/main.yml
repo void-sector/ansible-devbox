@@ -1,0 +1,6 @@
+---
+- name: restart_samba
+  service: name=smbd state=restarted
+
+- name: restart_nmbd
+  service: name=nmbd state=restarted

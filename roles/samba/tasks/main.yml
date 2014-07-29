@@ -1,0 +1,22 @@
+---
+- name: Install Samba
+  sudo: true
+  apt: pkg={{ item }}
+  with_items:
+  - samba
+  - samba-common
+  - python-glade2
+  - system-config-samba
+
+- name: Change webserver folder rights to 777
+  sudo: true
+  file: path=/var/www owner=vagrant group=vagrant mode=0777
+
+- name: Copy Samba Configuration
+  sudo: true
+  copy:
+    src="etc/samba/smb.conf"
+    dest="/etc/samba/smb.conf"
+  notify:
+      - restart_samba
+      - restart_nmbd
